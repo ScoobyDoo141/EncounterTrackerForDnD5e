@@ -10,6 +10,7 @@ namespace EncounterTracker5e
     {
         static List<string> newEnemy(List<string>enemies)
         {
+            Console.WriteLine("Hello");
             bool error;
             string newName;
             int newHP;
@@ -72,14 +73,14 @@ namespace EncounterTracker5e
             } while (errorCount >= 1);
             do
             {             
-                if (error = false)
+                if (error == false)
                 {
                     Console.WriteLine("Please enter an integer");
                 }
                 error = true;
                 Console.WriteLine("How much damage do they take?");
                 error = int.TryParse(Console.ReadLine(), out damageDealt);                                            
-            } while (error = false);
+            } while (error == false);
             string output = "";
             string enemyName = enemies[int.Parse(enemyHit)].Substring(4);
             int enemyHP = int.Parse(enemies[int.Parse(enemyHit)].Substring(0, 4));
@@ -98,19 +99,26 @@ namespace EncounterTracker5e
          
             while (true)
             {
-                Console.WriteLine("Do you want another creature? Y/N");
-                if (Console.ReadLine().ToUpper() == "Y")
+                Console.WriteLine("What do you want to do? (Write Help for a command list)");
+                if (Console.ReadLine().ToUpper() == "HELP")
+                {
+                    Console.WriteLine("NewEnemy - Allows input of a new enemy\nDealDamage - Allows the dealing of damage to an already existing enemy" +
+                        "\nDisplayHealth - Shows the health of all of the enemies stored in the program\nHelp - Displays the command list");
+                }
+                if (Console.ReadLine().ToUpper() == "NEWENEMY")
                 {
                     enemies = newEnemy(enemies);
                 }
-                Console.WriteLine("Do any creatures take damage? Y/N");
-                if (Console.ReadLine().ToUpper() == "Y")
+                else if (Console.ReadLine().ToUpper() == "DEALDAMAGE")
                 {
                     enemies = dealDamage(enemies);
                 }
-                for (int c = 0; c < enemies.ToArray().Length; c++)
-                {                  
-                    Console.WriteLine("{0} has {1} health", enemies[c].Substring(4), enemies[c].Substring(0,4));
+                else if (Console.ReadLine().ToUpper() == "DISPLAYHEALTH")
+                {
+                    for(int c = 0; c < enemies.ToArray().Length; c++)
+                    {
+                        Console.WriteLine("{0} has {1} health", enemies[c].Substring(4), enemies[c].Substring(0, 4));
+                    }
                 }
             }
         }       
