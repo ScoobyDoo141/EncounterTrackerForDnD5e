@@ -8,15 +8,16 @@ namespace EncounterTracker5e
 {
     class Program
     {
+        //The newEnemy function creates a new enemy and adds it to the enemies list, where they are stored
         static List<string> newEnemy(List<string>enemies)
         {
-            Console.WriteLine("Hello");
             bool error;
             string newName;
             int newHP;
             string output = "";
             do
             { 
+                //This gives the name for the creature (plus some validation)
                 Console.WriteLine("What should the creature be called?");
                 newName = Console.ReadLine();
                 error = true;
@@ -30,6 +31,7 @@ namespace EncounterTracker5e
             } while (error == false);
             do
             {
+                //This gives the health of the creature (plus some validation)
                 error = true;
                 Console.WriteLine("How much health does the creature have?");
                 error = int.TryParse(Console.ReadLine(), out newHP);
@@ -40,12 +42,15 @@ namespace EncounterTracker5e
             } while (error == false);
             for (int c = 4; c > newHP.ToString().Length; c--)
             {
+                //This formats the number to be four digits
                 output += "0";
             }
+            //This adds the new output string to the list
             output += newHP + newName;
             enemies.Add(output);
             return enemies;           
         }
+        //The dealDamage function manages damage being dealt to an enemy
         static List<string> dealDamage(List<string> enemies)
         {
             string enemyHit;
@@ -54,6 +59,7 @@ namespace EncounterTracker5e
             bool error;
             do
             {
+                //This gets the name of a creature
                 if (errorCount >= 1)
                 {
                     Console.WriteLine("Please enter the name of an existing enemy");
@@ -73,6 +79,7 @@ namespace EncounterTracker5e
             } while (errorCount >= 1);
             do
             {             
+                //This gets the damage the creature takes
                 if (error == false)
                 {
                     Console.WriteLine("Please enter an integer");
@@ -81,6 +88,7 @@ namespace EncounterTracker5e
                 Console.WriteLine("How much damage do they take?");
                 error = int.TryParse(Console.ReadLine(), out damageDealt);                                            
             } while (error == false);
+            //This seperates the string so that it can deal with the damage
             string output = "";
             string enemyName = enemies[int.Parse(enemyHit)].Substring(4);
             int enemyHP = int.Parse(enemies[int.Parse(enemyHit)].Substring(0, 4));
@@ -89,6 +97,7 @@ namespace EncounterTracker5e
             {
                 output += "0";
             }
+            //This outputs the creatures health and name back into the output string
             output += enemyHP + enemyName;
             enemies[int.Parse(enemyHit)] = output;
             return (enemies);
@@ -99,6 +108,7 @@ namespace EncounterTracker5e
          
             while (true)
             {
+                //This should call the different functions and acts as an interface
                 Console.WriteLine("What do you want to do? (Write Help for a command list)");
                 if (Console.ReadLine().ToUpper() == "HELP")
                 {
